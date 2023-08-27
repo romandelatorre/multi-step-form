@@ -108,14 +108,14 @@ function SelectPlan() {
         {dataSelectedPlan.map((item, index) => (
           <BoxComponentCardPlan
             key={index}
-            border={
-              selectedPlan.title === item.title
-                ? '1.5px solid #483EFF'
-                : '1.5px solid #9699AA'
-            }
-            backgroundColor={
-              selectedPlan.title === item.title ? '#F8F9FF' : null
-            }
+            sx={{
+              backgroundColor:
+                selectedPlan.title === item.title ? '#F8F9FF' : null,
+              border:
+                selectedPlan.title === item.title
+                  ? '1.5px solid #483EFF'
+                  : '1.5px solid #9699AA',
+            }}
             onClick={() => handleSelected(item)}
           >
             <StackComponentCard

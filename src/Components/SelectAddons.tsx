@@ -78,14 +78,12 @@ function SelectAddons() {
           <BoxComponentCardForm
             key={index}
             component="div"
-            backgroundColor={checkedAddons[index] ? '#F8F9FF' : null}
-            border={
-              checkedAddons[index]
-                ? '1.5px solid #483EFF'
-                : '1.5px solid #9699AA'
-            }
             sx={{
               mb: 2,
+              backgroundColor: checkedAddons[index] ? '#F8F9FF' : null,
+              border: checkedAddons[index]
+                ? '1.5px solid #483EFF'
+                : '1.5px solid #9699AA',
             }}
           >
             <Stack

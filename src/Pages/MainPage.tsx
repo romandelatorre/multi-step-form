@@ -116,7 +116,9 @@ function App() {
           <StackComponent>
             {stepsComponents[activeStep]}
 
-            <ButtonsComponent justify={activeStep}>
+            <ButtonsComponent
+              sx={{ justifyContent: activeStep ? 'space-between' : 'flex-end' }}
+            >
               {activeStep === 0 ? null : (
                 <Button
                   onClick={handleBack}

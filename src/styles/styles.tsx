@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
 import Switch from '@mui/material/Switch';
-
 import { styled } from '@mui/material/styles';
 
 export const Title = styled('div')(({ theme }) => ({
@@ -30,10 +29,9 @@ export const StackComponent = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export const ButtonsComponent = styled(Box)(({ theme, justify }) => ({
+export const ButtonsComponent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: justify ? 'space-between' : 'flex-end',
   alignItems: 'center',
   [theme.breakpoints.down('sm')]: {
     backgroundColor: 'white',
@@ -72,15 +70,11 @@ export const BoxComponent = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const BoxComponentCardForm = styled(Box)(
-  ({ border, backgroundColor }) => ({
-    border: border,
-    borderRadius: '8px',
-    width: '100%',
-    height: 'auto',
-    backgroundColor: backgroundColor,
-  })
-);
+export const BoxComponentCardForm = styled(Box)(() => ({
+  borderRadius: '8px',
+  width: '100%',
+  height: 'auto',
+}));
 
 export const CustomSwitch = styled(Switch)(({ theme }) => ({
   width: 50,
@@ -123,20 +117,16 @@ export const CustomSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export const BoxComponentCardPlan = styled(Box)(
-  ({ theme, border, backgroundColor }) => ({
-    border: border,
-    borderRadius: '8px',
-    width: '30%',
-    height: '200px',
-    backgroundColor: backgroundColor,
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      height: 'auto',
-      margin: '.5rem 0',
-    },
-  })
-);
+export const BoxComponentCardPlan = styled(Box)(({ theme }) => ({
+  borderRadius: '8px',
+  width: '30%',
+  height: '200px',
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    height: 'auto',
+    margin: '.5rem 0',
+  },
+}));
 
 export const StackComponentCard = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
