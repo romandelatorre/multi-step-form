@@ -3,12 +3,17 @@ import { useState, useContext, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
 import { FormContext } from './Context';
 import { MyFormHelperText } from './MyFormHelperText';
 import type { SelectedPlan } from './useFormValidation';
+import {
+  BoxComponent,
+  Title,
+  BoxComponentCardPlan,
+  StackComponentCard,
+  BoxComponentSwitch,
+  CustomSwitch,
+} from '../styles/styles';
 
 const dataSelectedPlan = [
   {
@@ -40,56 +45,8 @@ const dataSelectedPlan = [
   },
 ];
 
-const Title = styled('div')(() => ({
-  fontWeight: '900',
-  fontSize: '2rem',
-  color: '#022959',
-  textAlign: 'left',
-}));
-
-const CustomSwicht = styled(Switch)(({ theme }) => ({
-  width: 50,
-  height: 25,
-  padding: 0,
-  display: 'flex',
-  '&:active': {
-    '& .MuiSwitch-thumb': {
-      width: 20,
-    },
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      transform: 'translateX(9px)',
-    },
-  },
-  '& .MuiSwitch-switchBase': {
-    padding: 2,
-    '&.Mui-checked': {
-      transform: 'translateX(25px)',
-      color: '#fff',
-      '& + .MuiSwitch-track': {
-        opacity: 1,
-        backgroundColor: '#022959',
-      },
-    },
-  },
-  '& .MuiSwitch-thumb': {
-    boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
-    width: 21,
-    height: 21,
-    borderRadius: '50%',
-    transition: theme.transitions.create(['width'], {
-      duration: 200,
-    }),
-  },
-  '& .MuiSwitch-track': {
-    borderRadius: 16,
-    opacity: 1,
-    backgroundColor: '#022959',
-    boxSizing: 'border-box',
-  },
-}));
-
 function SelectPlan() {
-  const { formData, setFormData } = useContext(FormContext);
+  const { formData, setFormData, isMobile } = useContext(FormContext);
 
   const [selectedPlan, setSelectedPlan] = useState({
     title: '',
@@ -128,8 +85,8 @@ function SelectPlan() {
   };
 
   return (
-    <FormControl>
-      <Title sx={{ mt: 5 }}>Select Your Plan</Title>
+    <BoxComponent>
+      <Title sx={{ mt: { xm: 0, sm: 5 } }}>Select Your Plan</Title>
       <Typography
         variant="subtitle2"
         align="left"
@@ -141,37 +98,30 @@ function SelectPlan() {
         You have the option of monthly or yearly billing.
       </Typography>
       <Stack
-        direction="row"
+        direction={{ xm: 'column', sm: 'row' }}
         justifyContent="space-between"
         alignItems="center"
         sx={{
-          mt: 5.5,
+          mt: isMobile ? 2 : 5.5,
         }}
       >
         {dataSelectedPlan.map((item, index) => (
-          <Box
+          <BoxComponentCardPlan
             key={index}
-            component="div"
-            sx={{
-              border:
-                selectedPlan.title === item.title
-                  ? '1.5px solid #483EFF'
-                  : '1.5px solid #9699AA',
-              borderRadius: '8px',
-              width: '30%',
-              height: '200px',
-              backgroundColor:
-                selectedPlan.title === item.title ? '#F8F9FF' : null,
-            }}
+            border={
+              selectedPlan.title === item.title
+                ? '1.5px solid #483EFF'
+                : '1.5px solid #9699AA'
+            }
+            backgroundColor={
+              selectedPlan.title === item.title ? '#F8F9FF' : null
+            }
             onClick={() => handleSelected(item)}
           >
-            <Stack
-              direction="column"
-              justifyContent="space-between"
-              alignItems="baseline"
-              spacing={6}
+            <StackComponentCard
+              spacing={{ xm: 0, sm: 6 }}
               sx={{
-                p: '1rem',
+                p: isMobile ? 0 : '1rem',
               }}
             >
               <Box component="img" alt={item.title} src={item.img} />
@@ -192,24 +142,12 @@ function SelectPlan() {
                   </Typography>
                 )}
               </Box>
-            </Stack>
-          </Box>
+            </StackComponentCard>
+          </BoxComponentCardPlan>
         ))}
       </Stack>
       <MyFormHelperText name="selectedPlan" />
-      <Box
-        component="div"
-        sx={{
-          backgroundColor: '#F8F9FF',
-          borderRadius: '8px',
-          width: '100%',
-          height: '70px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          mt: 6,
-        }}
-      >
+      <BoxComponentSwitch component="div">
         <Stack direction="row" spacing={3} alignItems="center">
           <Typography
             color={checked?.monthly ? '#022959' : '#9699AA'}
@@ -217,7 +155,7 @@ function SelectPlan() {
           >
             Monthly
           </Typography>
-          <CustomSwicht
+          <CustomSwitch
             checked={checked.yearly}
             onChange={handleChange}
             inputProps={{ 'aria-label': 'toggle yearly/monthly' }}
@@ -229,8 +167,8 @@ function SelectPlan() {
             Yearly
           </Typography>
         </Stack>
-      </Box>
-    </FormControl>
+      </BoxComponentSwitch>
+    </BoxComponent>
   );
 }
 

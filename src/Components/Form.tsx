@@ -2,32 +2,24 @@ import { useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
 import { MyFormHelperText } from './MyFormHelperText';
 import { FormContext } from './Context';
 import { useFormValidation } from './useFormValidation';
-
-const Title = styled('div')(() => ({
-  fontWeight: '900',
-  fontSize: '2rem',
-  color: '#022959',
-  textAlign: 'left',
-}));
+import { BoxComponent, Title } from '../styles/styles';
 
 function Form() {
-  const { errors } = useContext(FormContext);
+  const { errors, isMobile } = useContext(FormContext);
   const { handleChange } = useFormValidation();
 
   return (
-    <Box>
-      <Title sx={{ mt: 5 }}>Personal info</Title>
+    <BoxComponent>
+      <Title sx={{ mt: { xm: 0, sm: 5 } }}>Personal info</Title>
       <Typography
         variant="subtitle2"
         align="left"
         color="#9699AA"
         sx={{
-          mt: 2,
+          mt: isMobile ? 2 : 5.5,
         }}
       >
         Please provide your name, email address, and phone number.
@@ -36,7 +28,7 @@ function Form() {
         variant="subtitle2"
         align="left"
         color="#022959"
-        sx={{ fontWeight: '600', mt: 5, mb: 1 }}
+        sx={{ fontWeight: '600', mt: isMobile ? 2 : 5, mb: 1 }}
       >
         Name
       </Typography>
@@ -106,7 +98,7 @@ function Form() {
           }}
         />
       </FormControl>
-    </Box>
+    </BoxComponent>
   );
 }
 

@@ -1,11 +1,14 @@
 import { createContext, useState } from 'react';
 import type { Form } from './useFormValidation';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 interface FormContext {
   formData: any;
   errors: { [key: string]: string };
   setFormData: any;
   setErrors: any;
+  isMobile: any;
 }
 
 export const FormContext = createContext<FormContext>({
@@ -13,6 +16,7 @@ export const FormContext = createContext<FormContext>({
   errors: {},
   setFormData: () => {},
   setErrors: () => {},
+  isMobile: true,
 });
 
 function ContextProvider({ children }: { children: React.ReactNode }) {
@@ -32,6 +36,8 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     selectedAddons: [],
   });
   const [errors, setErrors] = useState({});
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <FormContext.Provider
@@ -40,6 +46,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
         setFormData,
         errors,
         setErrors,
+        isMobile,
       }}
     >
       {children}

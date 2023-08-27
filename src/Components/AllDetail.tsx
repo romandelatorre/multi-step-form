@@ -3,23 +3,17 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
-import { styled } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import { FormContext } from './Context';
-
-const Title = styled('div')(() => ({
-  fontWeight: '900',
-  fontSize: '2rem',
-  color: '#022959',
-  textAlign: 'left',
-}));
+import { Title } from '../styles/styles';
+import { BoxComponentCardDetail } from '../styles/styles';
 
 function AllDetail() {
   const { formData } = useContext(FormContext);
 
   return (
     <FormControl>
-      <Title sx={{ mt: 5 }}>Finishing up</Title>
+      <Title sx={{ mt: { xm: 0, sm: 5 } }}>Finishing up</Title>
       <Typography
         variant="subtitle2"
         align="left"
@@ -38,16 +32,7 @@ function AllDetail() {
           mt: 5.5,
         }}
       >
-        <Box
-          component="div"
-          sx={{
-            borderRadius: '8px',
-            width: '100%',
-            height: 'auto',
-            mb: 2,
-            backgroundColor: '#F8F9FF',
-          }}
-        >
+        <BoxComponentCardDetail component="div">
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -127,7 +112,7 @@ function AllDetail() {
               </Typography>
             </Box>
           </Stack>
-        </Box>
+        </BoxComponentCardDetail>
       </Stack>
       <Stack
         direction="row"

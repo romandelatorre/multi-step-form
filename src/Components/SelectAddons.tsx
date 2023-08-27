@@ -3,11 +3,10 @@ import { useState, useEffect, useContext } from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import { styled } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import { FormContext } from './Context';
 import type { SelectedAddon } from './useFormValidation';
+import { BoxComponent, Title, BoxComponentCardForm } from '../styles/styles';
 
 const data = [
   {
@@ -33,15 +32,8 @@ const data = [
   },
 ];
 
-const Title = styled('div')(() => ({
-  fontWeight: '900',
-  fontSize: '2rem',
-  color: '#022959',
-  textAlign: 'left',
-}));
-
 function SelectAddons() {
-  const { formData, setFormData } = useContext(FormContext);
+  const { formData, setFormData, isMobile } = useContext(FormContext);
   const [checkedAddons, setCheckedAddons] = useState<boolean[]>([]);
   const [selectedAddons, setSelectedAddons] = useState<SelectedAddon[]>([]);
 
@@ -57,12 +49,13 @@ function SelectAddons() {
     const newSelectedAddons = data.filter(
       (index: any) => newCheckedAddons[index]
     );
+
     setSelectedAddons(newSelectedAddons);
   };
 
   return (
-    <FormControl>
-      <Title sx={{ mt: 5 }}>Pick add-ons</Title>
+    <BoxComponent>
+      <Title sx={{ mt: { xm: 0, sm: 5 } }}>Pick add-ons</Title>
       <Typography
         variant="subtitle2"
         align="left"
@@ -78,22 +71,21 @@ function SelectAddons() {
         justifyContent="center"
         alignItems="center"
         sx={{
-          mt: 5.5,
+          mt: isMobile ? 2 : 5.5,
         }}
       >
         {data.map((item, index) => (
-          <Box
+          <BoxComponentCardForm
             key={index}
             component="div"
-            sx={{
-              border: checkedAddons[index]
+            backgroundColor={checkedAddons[index] ? '#F8F9FF' : null}
+            border={
+              checkedAddons[index]
                 ? '1.5px solid #483EFF'
-                : '1.5px solid #9699AA',
-              borderRadius: '8px',
-              width: '100%',
-              height: 'auto',
+                : '1.5px solid #9699AA'
+            }
+            sx={{
               mb: 2,
-              backgroundColor: checkedAddons[index] ? '#F8F9FF' : null,
             }}
           >
             <Stack
@@ -101,7 +93,7 @@ function SelectAddons() {
               justifyContent="space-between"
               alignItems="center"
               sx={{
-                p: '1rem',
+                p: isMobile ? '.5rem' : '1rem',
               }}
             >
               <Stack
@@ -135,10 +127,10 @@ function SelectAddons() {
                 {item.priceMonthly}
               </Typography>
             </Stack>
-          </Box>
+          </BoxComponentCardForm>
         ))}
       </Stack>
-    </FormControl>
+    </BoxComponent>
   );
 }
 

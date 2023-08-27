@@ -2,20 +2,23 @@ import { useState, useContext, useEffect } from 'react';
 
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 
-import './App.css';
-import Form from './Components/Form';
-import SelectPlan from './Components/SelectPlan';
-import SelectAddons from './Components/SelectAddons';
-import AllDetail from './Components/AllDetail';
-import { FormContext } from './Components/Context';
-import { useFormValidation } from './Components/useFormValidation';
+import Form from '../Components/Form';
+import SelectPlan from '../Components/SelectPlan';
+import SelectAddons from '../Components/SelectAddons';
+import AllDetail from '../Components/AllDetail';
+import { FormContext } from '../Components/Context';
+import { useFormValidation } from '../Components/useFormValidation';
+
+import {
+  CustomStepper,
+  StackComponent,
+  ButtonsComponent,
+} from '../styles/styles';
 
 const steps = [
   {
@@ -36,25 +39,9 @@ const steps = [
   },
 ];
 
-const CustomStepper = styled(Stepper)(() => ({
-  position: 'absolute',
-  top: '5rem',
-  left: '5rem',
-  '& .MuiStepIcon-root.Mui-active': {
-    color: '#BEE2FD',
-  },
-
-  '& .MuiStepLabel-label': {
-    color: 'white',
-  },
-  '& .MuiStepLabel-label.Mui-active': {
-    color: 'white',
-  },
-}));
-
 function App() {
   const [activeStep, setActiveStep] = useState(0);
-  const { formData } = useContext(FormContext);
+  const { formData, isMobile } = useContext(FormContext);
   const { hasEmptyElements } = useFormValidation();
 
   useEffect(() => {
@@ -78,10 +65,14 @@ function App() {
   ];
 
   return (
-    <Container>
+    <Container
+      sx={{
+        backgroundColor: isMobile ? '#eff5ff' : 'white',
+      }}
+    >
       <Stack
         direction="column"
-        justifyContent="center"
+        justifyContent={{ xs: 'flex-start', sm: 'center' }}
         alignItems="center"
         sx={{
           width: '100%',
@@ -99,11 +90,11 @@ function App() {
           <Box
             component="img"
             sx={{
-              height: '90vh',
-              mr: 5,
+              height: { xs: 'auto', sm: '90vh' },
+              mr: { xs: 0, sm: 5 },
             }}
             alt="stepperHero"
-            src="stepperHero.svg"
+            src={isMobile ? 'stepperHeroMobile.svg' : 'stepperHero.svg'}
           />
           <CustomStepper
             activeStep={activeStep}
@@ -122,22 +113,10 @@ function App() {
             ))}
           </CustomStepper>
 
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            sx={{
-              minWidth: '500px',
-              height: '90vh',
-            }}
-          >
+          <StackComponent>
             {stepsComponents[activeStep]}
 
-            <Stack
-              spacing={2}
-              direction="row"
-              justifyContent={activeStep ? 'space-between' : 'flex-end'}
-              alignItems="center"
-            >
+            <ButtonsComponent justify={activeStep}>
               {activeStep === 0 ? null : (
                 <Button
                   onClick={handleBack}
@@ -153,8 +132,8 @@ function App() {
               >
                 Next Step
               </Button>
-            </Stack>
-          </Stack>
+            </ButtonsComponent>
+          </StackComponent>
         </Box>
       </Stack>
     </Container>
