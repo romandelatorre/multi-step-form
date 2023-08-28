@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 import { FormContext } from './Context';
-import type { SelectedAddon } from './useFormValidation';
 import { BoxComponent, Title, BoxComponentCardForm } from '../styles/styles';
 
 const data = [
@@ -14,44 +13,44 @@ const data = [
     subTitle: 'Access to multiplayer games',
     priceMonthly: '+$1/mo',
     priceYearly: '+$10/yr',
-    checkAddon: false,
   },
   {
     title: 'Larger storage',
     subTitle: 'Extra 1TB of cloud save',
     priceMonthly: '+$2/mo',
     priceYearly: '+$20/yr',
-    checkAddon: false,
   },
   {
     title: 'Customizable profile',
     subTitle: 'Custom theme on your profile',
     priceMonthly: '+$2/mo',
     priceYearly: '+$20/yr',
-    checkAddon: false,
   },
 ];
 
 function SelectAddons() {
   const { formData, setFormData, isMobile } = useContext(FormContext);
-  const [checkedAddons, setCheckedAddons] = useState<boolean[]>([]);
-  const [selectedAddons, setSelectedAddons] = useState<SelectedAddon[]>([]);
+  const [addons, setAddons] = useState(
+    data.map((addon) => ({
+      ...addon,
+      selected: false,
+    }))
+  );
+
+  const toggleAddon = (index: number) => {
+    const updated = [...addons];
+    updated[index].selected = !updated[index].selected;
+    setAddons(updated);
+  };
+
+  const selectedAddons = addons.filter((addon) => addon.selected);
 
   useEffect(() => {
-    setFormData({ ...formData, selectedAddons });
-  }, [selectedAddons, checkedAddons]);
-
-  const handleCheckboxChange = (index: number) => {
-    const newCheckedAddons = [...checkedAddons];
-    newCheckedAddons[index] = !newCheckedAddons[index];
-    setCheckedAddons(newCheckedAddons);
-
-    const newSelectedAddons = data.filter(
-      (index: any) => newCheckedAddons[index]
-    );
-
-    setSelectedAddons(newSelectedAddons);
-  };
+    setFormData(() => ({
+      ...formData,
+      selectedAddons,
+    }));
+  }, [addons]);
 
   return (
     <BoxComponent>
@@ -80,8 +79,8 @@ function SelectAddons() {
             component="div"
             sx={{
               mb: 2,
-              backgroundColor: checkedAddons[index] ? '#F8F9FF' : null,
-              border: checkedAddons[index]
+              backgroundColor: addons[index].selected ? '#F8F9FF' : null,
+              border: addons[index].selected
                 ? '1.5px solid #483EFF'
                 : '1.5px solid #9699AA',
             }}
@@ -104,8 +103,8 @@ function SelectAddons() {
                   sx={{
                     p: '1rem',
                   }}
-                  checked={checkedAddons[index]}
-                  onChange={() => handleCheckboxChange(index)}
+                  checked={addons[index].selected}
+                  onChange={() => toggleAddon(index)}
                 />
                 <Box>
                   <Typography
@@ -122,7 +121,9 @@ function SelectAddons() {
               </Stack>
 
               <Typography variant="caption" color="#483EFF" align="left">
-                {item.priceMonthly}
+                {formData.selectedPlan.monthly
+                  ? item.priceMonthly
+                  : item.priceYearly}
               </Typography>
             </Stack>
           </BoxComponentCardForm>

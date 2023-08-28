@@ -49,8 +49,12 @@ function SelectPlan() {
   const { formData, setFormData, isMobile } = useContext(FormContext);
 
   const [selectedPlan, setSelectedPlan] = useState({
+    img: '',
     title: '',
-    monthly: true,
+    priceMonthly: '',
+    priceYearly: '',
+    offerYearly: '',
+    monthly: false,
     yearly: false,
   });
   const [checked, setChecked] = useState({

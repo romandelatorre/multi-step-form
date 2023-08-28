@@ -1,18 +1,45 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
 import Divider from '@mui/material/Divider';
 import { FormContext } from './Context';
 import { Title } from '../styles/styles';
 import { BoxComponentCardDetail } from '../styles/styles';
+import { BoxComponent } from '../styles/styles';
+import { totalDetail } from '../utils/utils';
 
 function AllDetail() {
   const { formData } = useContext(FormContext);
+  const [price, setPrice] = useState('');
+
+  useEffect(() => {
+    handlePlan(formData.selectedPlan);
+    handleAddons(formData.selectedAddons, formData.selectedPlan);
+  }, [price]);
+
+  const handlePlan = (plan: any) => {
+    if (plan.monthly) {
+      setPrice(plan.priceMonthly);
+    } else if (plan.yearly) {
+      setPrice(plan.priceYearly);
+    }
+  };
+
+  const handleAddons = (addons: any, plan: any) => {
+    addons.forEach((addon: any) => {
+      if (addon.selected) {
+        if (plan.monthly) {
+          setPrice((prevPrice) => prevPrice + addon.priceMonthly);
+        } else if (plan.yearly) {
+          setPrice((prevPrice) => prevPrice + addon.priceYearly);
+        }
+      }
+    });
+  };
 
   return (
-    <FormControl>
+    <BoxComponent>
       <Title sx={{ mt: { xm: 0, sm: 5 } }}>Finishing up</Title>
       <Typography
         variant="subtitle2"
@@ -32,7 +59,12 @@ function AllDetail() {
           mt: 5.5,
         }}
       >
-        <BoxComponentCardDetail component="div">
+        <BoxComponentCardDetail
+          component="div"
+          sx={{
+            mb: 3,
+          }}
+        >
           <Stack
             direction="row"
             justifyContent="space-between"
@@ -60,58 +92,42 @@ function AllDetail() {
                 sx={{ fontWeight: '800', fontSize: '1rem' }}
                 align="left"
               >
-                $9/mo
+                {`+${
+                  formData.selectedPlan.yearly
+                    ? formData.selectedPlan.priceYearly
+                    : formData.selectedPlan.priceMonthly
+                }`}
               </Typography>
             </Box>
           </Stack>
           <Divider variant="middle" />
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{
-              p: 3,
-              pb: 0,
-            }}
-          >
-            <Box>
-              <Typography variant="caption" color="#9699AA" align="left">
-                Online service
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                color="#022959"
-                sx={{ fontSize: '1rem' }}
-                align="left"
-              >
-                +$1/mo
-              </Typography>
-            </Box>
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{
-              p: 3,
-            }}
-          >
-            <Box>
-              <Typography variant="caption" color="#9699AA" align="left">
-                Larger storage
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                color="#022959"
-                sx={{ fontSize: '1rem' }}
-                align="left"
-              >
-                +$2/mo
-              </Typography>
-            </Box>
-          </Stack>
+          {formData.selectedAddons.map((item: any) => (
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{
+                p: 3,
+              }}
+            >
+              <Box>
+                <Typography variant="caption" color="#9699AA" align="left">
+                  {item.title}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  color="#022959"
+                  sx={{ fontSize: '1rem' }}
+                  align="left"
+                >
+                  {formData.selectedPlan.yearly
+                    ? item.priceYearly
+                    : item.priceMonthly}
+                </Typography>
+              </Box>
+            </Stack>
+          ))}
         </BoxComponentCardDetail>
       </Stack>
       <Stack
@@ -133,11 +149,11 @@ function AllDetail() {
             sx={{ fontSize: '1rem', fontWeight: '800' }}
             align="left"
           >
-            +$2/mo
+            {`+${totalDetail(price)}`}
           </Typography>
         </Box>
       </Stack>
-    </FormControl>
+    </BoxComponent>
   );
 }
 

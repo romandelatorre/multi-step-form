@@ -36,6 +36,10 @@ export const ButtonsComponent = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     backgroundColor: 'white',
     padding: '1rem',
+    position: 'fixed',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 }));
 
@@ -43,14 +47,45 @@ export const CustomStepper = styled(Stepper)(({ theme }) => ({
   position: 'absolute',
   top: '5rem',
   left: '5rem',
-  '& .MuiStepIcon-root.Mui-active': {
-    color: '#BEE2FD',
+  '&.MuiStepper-root': {
+    [theme.breakpoints.down('sm')]: {
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+    },
   },
+  '& .MuiStepIcon-root': {
+    fontSize: '2rem',
+    color: 'transparent',
+    borderRadius: '50%',
+    border: '1px solid white',
+    boxShadow: 'inset 0 0 0 1px white',
+    '&.Mui-active': {
+      color: '#BEE2FD',
 
+      '& text': {
+        fill: '#022959',
+        fontWeight: 'bolder',
+      },
+    },
+    '&.Mui-completed': {
+      color: 'white',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2.5rem',
+      margin: '0 .4rem',
+    },
+  },
   '& .MuiStepLabel-label': {
     color: 'white',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   '& .MuiStepLabel-label.Mui-active': {
+    color: 'white',
+  },
+  '& .MuiStepLabel-label.Mui-completed': {
     color: 'white',
   },
   [theme.breakpoints.down('sm')]: {
@@ -65,7 +100,7 @@ export const BoxComponent = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     backgroundColor: 'white',
     borderRadius: '15px',
-    margin: '1rem',
+    margin: '25px',
     padding: '1rem',
   },
 }));
@@ -161,6 +196,5 @@ export const BoxComponentCardDetail = styled(Box)(() => ({
   borderRadius: '8px',
   width: '100%',
   height: 'auto',
-  mb: 2,
   backgroundColor: '#F8F9FF',
 }));

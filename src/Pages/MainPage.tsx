@@ -11,6 +11,7 @@ import Form from '../Components/Form';
 import SelectPlan from '../Components/SelectPlan';
 import SelectAddons from '../Components/SelectAddons';
 import AllDetail from '../Components/AllDetail';
+import Summary from '../Components/Summary';
 import { FormContext } from '../Components/Context';
 import { useFormValidation } from '../Components/useFormValidation';
 
@@ -62,6 +63,7 @@ function App() {
     <SelectPlan />,
     <SelectAddons />,
     <AllDetail />,
+    <Summary />,
   ];
 
   return (
@@ -102,7 +104,7 @@ function App() {
             orientation="vertical"
           >
             {steps.map((step) => (
-              <Step key={step.label}>
+              <Step key={step.label} sx={{ mb: isMobile ? 0 : '1rem' }}>
                 <StepLabel>
                   <Stack direction="column">
                     <Box>{step.label}</Box>
@@ -115,26 +117,33 @@ function App() {
 
           <StackComponent>
             {stepsComponents[activeStep]}
-
-            <ButtonsComponent
-              sx={{ justifyContent: activeStep ? 'space-between' : 'flex-end' }}
-            >
-              {activeStep === 0 ? null : (
-                <Button
-                  onClick={handleBack}
-                  sx={{ mt: 1, mr: 1, color: '#9699AA' }}
-                >
-                  Go Back
-                </Button>
-              )}
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                sx={{ mt: 1, mr: 1, backgroundColor: '#022959' }}
+            {activeStep === 4 ? null : (
+              <ButtonsComponent
+                sx={{
+                  justifyContent: activeStep ? 'space-between' : 'flex-end',
+                }}
               >
-                Next Step
-              </Button>
-            </ButtonsComponent>
+                {activeStep === 0 ? null : (
+                  <Button
+                    onClick={handleBack}
+                    sx={{ mt: 1, mr: 1, color: '#9699AA' }}
+                  >
+                    Go Back
+                  </Button>
+                )}
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{
+                    mt: 1,
+                    mr: 1,
+                    backgroundColor: activeStep === 3 ? '#483EFF' : '#022959',
+                  }}
+                >
+                  {activeStep === 3 ? 'Confirm' : 'Next Step'}
+                </Button>
+              </ButtonsComponent>
+            )}
           </StackComponent>
         </Box>
       </Stack>

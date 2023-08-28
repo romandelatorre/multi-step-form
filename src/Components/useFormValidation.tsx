@@ -26,7 +26,6 @@ export type SelectedAddon = {
   subTitle: string;
   priceMonthly: string;
   priceYearly: string;
-  checkAddon: boolean;
 };
 
 const validations = {
@@ -83,7 +82,9 @@ export const useFormValidation = () => {
         case 0:
           return !data.name || !data.email || !data.phone || hasErrors;
         case 1:
-          return Object.keys(data.selectedPlan).length === 0;
+          return Object.values(data.selectedPlan).some(
+            (value) => typeof value === 'string' && !value.trim()
+          );
         case 2:
           return data.selectedAddons.length === 0;
         default:
