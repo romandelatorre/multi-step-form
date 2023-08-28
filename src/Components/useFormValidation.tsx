@@ -59,6 +59,11 @@ const validations: ValidationMap = {
 export const useFormValidation = () => {
   const { setErrors, setFormData, errors, formData } = useContext(FormContext);
 
+  const hasEmptySelectedPlan = Object.values(formData.selectedPlan ?? {}).some(
+    (value) => typeof value === 'string' && !value.trim()
+  );
+  const hasErrors = Object.keys(errors).length > 0;
+
   const validateForm = (fieldName: FieldName, value: string) => {
     return validations[fieldName](value);
   };
@@ -82,34 +87,36 @@ export const useFormValidation = () => {
     });
   };
 
-  const validateFormFields = () => {
+  const handleSubmit = (activeStep: number) => {
     const newErrors: any = {};
 
-    Object.keys(validations).map((fieldName: string) => {
-      const value = formData[fieldName];
-      const error = validations[fieldName](value);
+    switch (activeStep) {
+      case 0:
+        Object.keys(validations).map((fieldName: string) => {
+          const value = formData[fieldName];
+          const error = validations[fieldName](value);
 
-      if (error) {
-        newErrors[fieldName] = error;
-      }
-    });
-
-    const hasEmptySelectedPlan = Object.values(
-      formData.selectedPlan ?? {}
-    ).some((value) => typeof value === 'string' && !value.trim());
-
-    if (hasEmptySelectedPlan) {
-      newErrors.selectedPlan = 'Selected Plan is required';
+          if (error) {
+            newErrors[fieldName] = error;
+          }
+        });
+        break;
+      case 1:
+        if (hasEmptySelectedPlan) {
+          newErrors.selectedPlan = 'Selected Plan is required';
+        }
+        break;
+      case 2:
+        if (!formData.selectedAddons.length) {
+          newErrors.selectedAddons = 'Selected Addons is required';
+        }
+        break;
+      case 3:
+        hasErrors;
+        break;
     }
 
-    if (!formData.selectedAddons.length) {
-      newErrors.selectedAddons = 'Selected Addons is required';
-    }
     setErrors(newErrors);
-  };
-
-  const handleSubmit = () => {
-    validateFormFields();
   };
 
   function hasEmptyElements(data: Form, activeStep: number) {
@@ -118,9 +125,8 @@ export const useFormValidation = () => {
         case 0:
           return !data.name || !data.email || !data.phone || hasErrors;
         case 1:
-          return Object.values(data.selectedPlan).some(
-            (value) => typeof value === 'string' && !value.trim()
-          );
+          return hasEmptySelectedPlan;
+
         case 2:
           return !data.selectedAddons.length;
         case 3:
@@ -132,8 +138,6 @@ export const useFormValidation = () => {
 
     return validateStep(activeStep);
   }
-
-  const hasErrors = Object.keys(errors).length > 0;
 
   return {
     handleSubmit,

@@ -50,9 +50,9 @@ function App() {
   }, [formData, activeStep]);
 
   const handleNext = () => {
-    handleSubmit();
     !hasEmptyElements(formData, activeStep) &&
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    handleSubmit(activeStep);
   };
 
   const handleBack = () => {
