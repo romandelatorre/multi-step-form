@@ -23,17 +23,17 @@ describe('Form', () => {
     userEvent.click(screen.getByText('Next Step'));
 
     handleSubmit({
-      name: 'John Doe',
-      email: 'test@example.com',
-      phone: '555-1234',
+      name: 'Roman De la Torre',
+      email: 'roman@example.com',
+      phone: '3216987411',
     });
 
     await waitFor(() => expect(handleSubmit).toHaveBeenCalled());
 
     expect(handleSubmit).toHaveBeenCalledWith({
-      name: 'John Doe',
-      email: 'test@example.com',
-      phone: '555-1234',
+      name: 'Roman De la Torre',
+      email: 'roman@example.com',
+      phone: '3216987411',
     });
   });
 });

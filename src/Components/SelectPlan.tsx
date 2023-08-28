@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { FormContext } from './Context';
-import { MyFormHelperText } from './MyFormHelperText';
+import { FormHelperTextUtil } from '../utils/FormHelperTextUtil';
 import type { SelectedPlan } from './useFormValidation';
 import {
   BoxComponent,
@@ -150,7 +150,7 @@ function SelectPlan() {
           </BoxComponentCardPlan>
         ))}
       </Stack>
-      <MyFormHelperText name="selectedPlan" />
+      <FormHelperTextUtil name="selectedPlan" />
       <BoxComponentSwitch component="div">
         <Stack direction="row" spacing={3} alignItems="center">
           <Typography

@@ -1,8 +1,8 @@
 import FormHelperText from '@mui/material/FormHelperText';
 import { useContext } from 'react';
-import { FormContext } from './Context';
+import { FormContext } from '../Components/Context';
 
-export const MyFormHelperText = ({ name }: { name: string }) => {
+export const FormHelperTextUtil = ({ name }: { name: string }) => {
   const { errors } = useContext(FormContext);
   if (!errors[name]) return null;
 

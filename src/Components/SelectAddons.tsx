@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
 import { FormContext } from './Context';
 import { BoxComponent, Title, BoxComponentCardForm } from '../styles/styles';
+import { FormHelperTextUtil } from '../utils/FormHelperTextUtil';
 
 const data = [
   {
@@ -129,6 +130,7 @@ function SelectAddons() {
           </BoxComponentCardForm>
         ))}
       </Stack>
+      <FormHelperTextUtil name="selectedAddons" />
     </BoxComponent>
   );
 }

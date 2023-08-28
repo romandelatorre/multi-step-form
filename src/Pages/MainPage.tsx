@@ -43,13 +43,14 @@ const steps = [
 function App() {
   const [activeStep, setActiveStep] = useState(0);
   const { formData, isMobile } = useContext(FormContext);
-  const { hasEmptyElements } = useFormValidation();
+  const { hasEmptyElements, handleSubmit } = useFormValidation();
 
   useEffect(() => {
     hasEmptyElements(formData, activeStep);
   }, [formData, activeStep]);
 
   const handleNext = () => {
+    handleSubmit();
     !hasEmptyElements(formData, activeStep) &&
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };

@@ -28,7 +28,13 @@ export type SelectedAddon = {
   priceYearly: string;
 };
 
-const validations = {
+type ValidationFunction = (value: string) => string | undefined;
+
+type ValidationMap = {
+  [key: string]: ValidationFunction;
+};
+
+const validations: ValidationMap = {
   name: (value: string) => {
     if (!value) {
       return 'Name is required';
@@ -51,7 +57,7 @@ const validations = {
 };
 
 export const useFormValidation = () => {
-  const { setErrors, setFormData, errors } = useContext(FormContext);
+  const { setErrors, setFormData, errors, formData } = useContext(FormContext);
 
   const validateForm = (fieldName: FieldName, value: string) => {
     return validations[fieldName](value);
@@ -76,6 +82,36 @@ export const useFormValidation = () => {
     });
   };
 
+  const validateFormFields = () => {
+    const newErrors: any = {};
+
+    Object.keys(validations).map((fieldName: string) => {
+      const value = formData[fieldName];
+      const error = validations[fieldName](value);
+
+      if (error) {
+        newErrors[fieldName] = error;
+      }
+    });
+
+    const hasEmptySelectedPlan = Object.values(
+      formData.selectedPlan ?? {}
+    ).some((value) => typeof value === 'string' && !value.trim());
+
+    if (hasEmptySelectedPlan) {
+      newErrors.selectedPlan = 'Selected Plan is required';
+    }
+
+    if (!formData.selectedAddons.length) {
+      newErrors.selectedAddons = 'Selected Addons is required';
+    }
+    setErrors(newErrors);
+  };
+
+  const handleSubmit = () => {
+    validateFormFields();
+  };
+
   function hasEmptyElements(data: Form, activeStep: number) {
     const validateStep = (step: number) => {
       switch (step) {
@@ -86,7 +122,9 @@ export const useFormValidation = () => {
             (value) => typeof value === 'string' && !value.trim()
           );
         case 2:
-          return data.selectedAddons.length === 0;
+          return !data.selectedAddons.length;
+        case 3:
+          return hasErrors;
         default:
           return false;
       }
@@ -98,6 +136,7 @@ export const useFormValidation = () => {
   const hasErrors = Object.keys(errors).length > 0;
 
   return {
+    handleSubmit,
     handleChange,
     hasEmptyElements,
     hasErrors,

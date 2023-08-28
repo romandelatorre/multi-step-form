@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import { MyFormHelperText } from './MyFormHelperText';
+import { FormHelperTextUtil } from '../utils/FormHelperTextUtil';
 import { FormContext } from './Context';
 import { useFormValidation } from './useFormValidation';
 import { BoxComponent, Title } from '../styles/styles';
@@ -33,7 +33,7 @@ function Form() {
         Name
       </Typography>
       <FormControl fullWidth variant="outlined">
-        <MyFormHelperText name="name" />
+        <FormHelperTextUtil name="name" />
         <OutlinedInput
           data-testid="name-input"
           placeholder="e.g. Stephen King"
@@ -59,7 +59,7 @@ function Form() {
       </Typography>
 
       <FormControl fullWidth variant="outlined">
-        <MyFormHelperText name="email" />
+        <FormHelperTextUtil name="email" />
         <OutlinedInput
           placeholder="e.g. stephenking@lorem.com"
           name="email"
@@ -83,7 +83,7 @@ function Form() {
         Phone Number
       </Typography>
       <FormControl fullWidth variant="outlined">
-        <MyFormHelperText name="phone" />
+        <FormHelperTextUtil name="phone" />
         <OutlinedInput
           placeholder="e.g. +1 234 567 890"
           name="phone"
