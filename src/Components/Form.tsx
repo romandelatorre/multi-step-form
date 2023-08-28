@@ -35,6 +35,7 @@ function Form() {
       <FormControl fullWidth variant="outlined">
         <MyFormHelperText name="name" />
         <OutlinedInput
+          data-testid="name-input"
           placeholder="e.g. Stephen King"
           name="name"
           error={!!errors.name}
@@ -60,7 +61,7 @@ function Form() {
       <FormControl fullWidth variant="outlined">
         <MyFormHelperText name="email" />
         <OutlinedInput
-          placeholder="e.g. Stephen King"
+          placeholder="e.g. stephenking@lorem.com"
           name="email"
           error={!!errors.email}
           onChange={handleChange}
@@ -84,7 +85,7 @@ function Form() {
       <FormControl fullWidth variant="outlined">
         <MyFormHelperText name="phone" />
         <OutlinedInput
-          placeholder="e.g. Stephen King"
+          placeholder="e.g. +1 234 567 890"
           name="phone"
           error={!!errors.phone}
           onChange={handleChange}
