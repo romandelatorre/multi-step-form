@@ -90,7 +90,7 @@ function SelectPlan() {
 
   return (
     <BoxComponent>
-      <Title sx={{ mt: { xm: 0, sm: 5 } }}>Select Your Plan</Title>
+      <Title sx={{ mt: { sm: 0, md: 5 } }}>Select Your Plan</Title>
       <Typography
         variant="subtitle2"
         align="left"
@@ -102,7 +102,7 @@ function SelectPlan() {
         You have the option of monthly or yearly billing.
       </Typography>
       <Stack
-        direction={{ xm: 'column', sm: 'row' }}
+        direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
         alignItems="center"
         sx={{
@@ -123,16 +123,23 @@ function SelectPlan() {
             onClick={() => handleSelected(item)}
           >
             <StackComponentCard
-              spacing={{ xm: 0, sm: 6 }}
+              spacing={{ sm: 0, md: 6 }}
               sx={{
                 p: isMobile ? 0 : '1rem',
               }}
             >
-              <Box component="img" alt={item.title} src={item.img} />
+              <Box
+                component="img"
+                alt={item.title}
+                src={item.img}
+                sx={{
+                  p: isMobile ? '1rem' : 0,
+                }}
+              />
               <Box>
                 <Typography
                   color="#022959"
-                  sx={{ fontWeight: '600', fontSize: '1.4rem' }}
+                  sx={{ fontWeight: '600', fontSize: '1.2rem' }}
                   align="left"
                 >
                   {item.title}

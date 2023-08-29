@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react';
-
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -55,7 +54,7 @@ function SelectAddons() {
 
   return (
     <BoxComponent>
-      <Title sx={{ mt: { xm: 0, sm: 5 } }}>Pick add-ons</Title>
+      <Title sx={{ mt: { sm: 0, md: 5 } }}>Pick add-ons</Title>
       <Typography
         variant="subtitle2"
         align="left"
@@ -102,7 +101,7 @@ function SelectAddons() {
                 <Checkbox
                   inputProps={{ 'aria-label': 'controlled' }}
                   sx={{
-                    p: '1rem',
+                    p: isMobile ? '.5rem' : '1rem',
                   }}
                   checked={addons[index].selected}
                   onChange={() => toggleAddon(index)}

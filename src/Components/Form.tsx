@@ -13,7 +13,7 @@ function Form() {
 
   return (
     <BoxComponent>
-      <Title sx={{ mt: { xm: 0, sm: 5 } }}>Personal info</Title>
+      <Title sx={{ mt: { sm: 0, md: 5 } }}>Personal info</Title>
       <Typography
         variant="subtitle2"
         align="left"

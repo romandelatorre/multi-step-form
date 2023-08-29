@@ -9,7 +9,7 @@ export const Title = styled('div')(({ theme }) => ({
   fontSize: '2rem',
   color: '#022959',
   textAlign: 'left',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     fontSize: '1.5rem',
   },
 }));
@@ -18,14 +18,15 @@ export const StackComponent = styled(Stack)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  minWidth: '500px',
+  alignItems: 'center',
+  minWidth: '50%',
   height: '90vh',
   position: 'relative',
-  [theme.breakpoints.down('sm')]: {
-    minWidth: 'auto',
+  [theme.breakpoints.down('md')]: {
+    minWidth: '100%',
     height: '80vh',
     position: 'absolute',
-    marginTop: 120,
+    marginTop: '100px',
   },
 }));
 
@@ -33,9 +34,11 @@ export const ButtonsComponent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
-  [theme.breakpoints.down('sm')]: {
+  width: '100%',
+  [theme.breakpoints.down('md')]: {
     backgroundColor: 'white',
-    padding: '1rem',
+    width: 'auto',
+    padding: '1.3rem',
     position: 'fixed',
     bottom: 0,
     left: 0,
@@ -48,8 +51,8 @@ export const CustomStepper = styled(Stepper)(({ theme }) => ({
   top: '5rem',
   left: '5rem',
   '&.MuiStepper-root': {
-    [theme.breakpoints.down('sm')]: {
-      top: '50%',
+    [theme.breakpoints.down('md')]: {
+      top: '50px',
       left: '50%',
       transform: 'translate(-50%, -50%)',
     },
@@ -71,14 +74,14 @@ export const CustomStepper = styled(Stepper)(({ theme }) => ({
     '&.Mui-completed': {
       color: 'white',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       fontSize: '2.5rem',
       margin: '0 .4rem',
     },
   },
   '& .MuiStepLabel-label': {
     color: 'white',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none',
     },
   },
@@ -88,7 +91,7 @@ export const CustomStepper = styled(Stepper)(({ theme }) => ({
   '& .MuiStepLabel-label.Mui-completed': {
     color: 'white',
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     top: 0,
     left: 0,
     display: 'flex',
@@ -97,11 +100,13 @@ export const CustomStepper = styled(Stepper)(({ theme }) => ({
 }));
 
 export const BoxComponent = styled(Box)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
+  width: '100%',
+  [theme.breakpoints.down('md')]: {
     backgroundColor: 'white',
     borderRadius: '15px',
-    margin: '25px',
     padding: '1rem',
+    width: '80%',
+    height: 'auto',
   },
 }));
 
@@ -156,7 +161,7 @@ export const BoxComponentCardPlan = styled(Box)(({ theme }) => ({
   borderRadius: '8px',
   width: '30%',
   height: '200px',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     width: '100%',
     height: 'auto',
     margin: '.5rem 0',
@@ -167,14 +172,11 @@ export const StackComponentCard = styled(Stack)(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'space-between',
   alignItems: 'baseline',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: '1rem',
-    '& img': {
-      marginRight: '1rem',
-    },
+    padding: '.6rem',
   },
 }));
 
@@ -187,7 +189,7 @@ export const BoxComponentSwitch = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   marginTop: '2rem',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     marginTop: '1rem',
   },
 }));

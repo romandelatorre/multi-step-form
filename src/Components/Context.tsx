@@ -37,7 +37,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
   });
   const [errors, setErrors] = useState({});
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <FormContext.Provider

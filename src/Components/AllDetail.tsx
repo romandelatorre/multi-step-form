@@ -40,7 +40,7 @@ function AllDetail() {
 
   return (
     <BoxComponent>
-      <Title sx={{ mt: { xm: 0, sm: 5 } }}>Finishing up</Title>
+      <Title sx={{ mt: { sm: 0, md: 5 } }}>Finishing up</Title>
       <Typography
         variant="subtitle2"
         align="left"

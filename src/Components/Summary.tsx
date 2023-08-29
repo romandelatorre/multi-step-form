@@ -1,26 +1,32 @@
+import { useContext } from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Title } from '../styles/styles';
 import { BoxComponent } from '../styles/styles';
+import { FormContext } from '../Components/Context';
 
 function Summary() {
+  const { isMobile } = useContext(FormContext);
+
   return (
-    <BoxComponent
-      sx={{
-        mt: 20,
-      }}
-    >
+    <BoxComponent>
       <Stack
         direction="column"
         justifyContent="center"
         alignItems="center"
         sx={{
           mt: 5.5,
+          p: 2,
         }}
       >
-        <Box component="img" alt="check" src="check.svg" />
-        <Title sx={{ mt: { xm: 0, sm: 5 } }}>Thank you!</Title>
+        <Box
+          component="img"
+          alt="check"
+          src="check.svg"
+          sx={{ mb: isMobile ? 2 : 0, width: isMobile ? '50px' : '70px' }}
+        />
+        <Title sx={{ mt: { sm: 0, md: 5 } }}>Thank you!</Title>
         <Typography
           variant="subtitle2"
           align="justify"
